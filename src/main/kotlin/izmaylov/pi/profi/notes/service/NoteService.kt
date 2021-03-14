@@ -45,7 +45,9 @@ class NoteService(
     }
 
     fun deleteNote(id: Long) {
-        repository.deleteById(id)
+        repository.findByIdOrNull(id)?.let {
+            repository.delete(it)
+        }
     }
 
     class NoNoteException(message: String) : RuntimeException(message)
